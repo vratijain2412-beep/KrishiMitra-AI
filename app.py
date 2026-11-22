@@ -15,7 +15,7 @@ from groq import (
     APIStatusError,
     RateLimitError,
     APIConnectionError,
-    APITimeoutError
+    APITimeoutError,
 )
 
 # ==========================================
@@ -33,7 +33,15 @@ MODEL_NAME = os.getenv(
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 
-DB_PATH = BASE_DIR / "krishimitra.db"
+# VERCEL COMPATIBILITY UPDATE
+# Local: database in project folder
+# Vercel: database in writable /tmp folder
+DB_PATH = (
+    Path("/tmp/krishimitra.db")
+    if os.getenv("VERCEL")
+    else BASE_DIR / "krishimitra.db"
+)
+
 PORT = 5001
 
 client = Groq(
@@ -154,7 +162,7 @@ def ask_groq(prompt, image_url=None):
 
     if not client:
         raise RuntimeError(
-            "GROQ_API_KEY missing in .env file."
+            "GROQ_API_KEY missing in environment variables."
         )
 
     if image_url:
@@ -292,7 +300,7 @@ def handle_error(feature, error):
         success=False,
         error=(
             "Request failed. "
-            "Check the VS Code terminal."
+            "Check the server logs."
         )
     ), 500
 
@@ -327,7 +335,6 @@ def test_groq():
         return handle_error("Groq Test", e)
 
 
-# Keep old test URL working too.
 @app.route("/test-gemini")
 def old_test_redirect():
     return test_groq()
