@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiMitra AI | Smart Farming Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">🌱</span><span>KrishiMitra <b>AI</b></span></a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#assistant">Ask KrishiBot</a>
+      <a href="#history">History</a>
+    </nav>
+    <a class="nav-cta" href="#assistant">Get advice</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">YOUR DIGITAL FARMING COMPANION</span>
+        <h1>Smarter decisions.<br><span>Healthier harvests.</span></h1>
+        <p>Simple AI-powered farming guidance for crop selection, leaf health, fertilizer, irrigation and everyday farm questions.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#features">Explore tools <span>→</span></a>
+          <a class="text-link" href="#assistant">Talk to KrishiBot</a>
+        </div>
+        <div class="hero-note"><span class="online-dot"></span> Practical farming support, in one place</div>
+      </div>
+      <div class="hero-art">
+        <div class="sun"></div>
+        <div class="field field-back"></div><div class="field field-front"></div>
+        <div class="plant plant-one">🌿</div><div class="plant plant-two">🌾</div><div class="plant plant-three">🌱</div>
+        <div class="art-card"><span>🌤️</span><div><b>Grow with confidence</b><small>Guidance for every step</small></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-heading">
+        <div><span class="eyebrow">FARMING TOOLKIT</span><h2>What can we help with?</h2></div>
+        <p>Choose a tool, enter your farm details, and get easy-to-understand guidance.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card" onclick="showPanel('crop-panel')"><div class="feature-icon green">🌾</div><h3>Crop Recommendation</h3><p>Explore crop options using your soil, pH, season and location.</p><button>Try tool <span>→</span></button></article>
+        <article class="feature-card" onclick="showPanel('disease-panel')"><div class="feature-icon peach">🍃</div><h3>Leaf Health Check</h3><p>Upload a crop leaf photo to explore possible problems.</p><button>Try tool <span>→</span></button></article>
+        <article class="feature-card" onclick="showPanel('fertilizer-panel')"><div class="feature-icon yellow">🧪</div><h3>Fertilizer Assistant</h3><p>Understand nutrient needs and soil-test-based practices.</p><button>Try tool <span>→</span></button></article>
+        <article class="feature-card" onclick="showPanel('irrigation-panel')"><div class="feature-icon blue">💧</div><h3>Smart Irrigation</h3><p>Get watering guidance based on crop and field conditions.</p><button>Try tool <span>→</span></button></article>
+        <article class="feature-card" onclick="showPanel('weather-panel')"><div class="feature-icon purple">🌦️</div><h3>Weather-Based Advice</h3><p>Enter current weather details for practical farm precautions.</p><button>Try tool <span>→</span></button></article>
+        <article class="feature-card" onclick="document.querySelector('#assistant').scrollIntoView({behavior:'smooth'})"><div class="feature-icon mint">💬</div><h3>KrishiBot Chat</h3><p>Ask farming questions in simple Hindi or English.</p><button>Chat now <span>→</span></button></article>
+      </div>
+    </section>
+
+    <section class="workspace section" id="workspace">
+      <div class="section-heading"><div><span class="eyebrow">YOUR FARMING WORKSPACE</span><h2 id="panel-title">Choose a farming tool</h2></div><p id="panel-subtitle">Your result will appear here after you submit the form.</p></div>
+      <div class="tool-layout">
+        <div class="tool-panel" id="crop-panel">
+          <h3>🌾 Crop Recommendation</h3><p class="muted">Tell us a little about your farm.</p>
+          <form id="crop-form">
+            <label>Location<input name="location" placeholder="e.g. Takhatgarh, Rajasthan" required></label>
+            <div class="two-col"><label>Soil type<select name="soil" required><option value="">Select soil</option><option>Black soil</option><option>Alluvial soil</option><option>Red soil</option><option>Sandy soil</option><option>Clay soil</option><option>Loamy soil</option><option>Other / Not sure</option></select></label><label>Season<select name="season" required><option value="">Select season</option><option>Kharif</option><option>Rabi</option><option>Zaid</option><option>Other</option></select></label></div>
+            <div class="two-col"><label>Soil pH<input name="ph" placeholder="e.g. 7.2" required></label><label>Water availability<select name="water"><option>Average</option><option>Low</option><option>Good</option><option>Not sure</option></select></label></div>
+            <button class="primary-btn" type="submit">Get crop ideas →</button>
+          </form>
+        </div>
+
+        <div class="tool-panel hidden" id="disease-panel">
+          <h3>🍃 Leaf Health Check</h3><p class="muted">Upload a clear photo of one affected leaf.</p>
+          <form id="disease-form">
+            <label>Crop name<input name="crop" placeholder="e.g. Tomato, wheat, cotton"></label>
+            <label>Leaf image<input name="leaf_image" type="file" accept="image/png,image/jpeg,image/webp" required></label>
+            <label>Symptoms or notes<textarea name="notes" rows="3" placeholder="e.g. Yellow spots, curling, dry edges..."></textarea></label>
+            <p class="small-note">Use a JPG, PNG or WEBP image up to 5 MB.</p>
+            <button class="primary-btn" type="submit">Analyse leaf image →</button>
+          </form>
+        </div>
+
+        <div class="tool-panel hidden" id="fertilizer-panel">
+          <h3>🧪 Fertilizer Assistant</h3><p class="muted">Share crop and soil information for general guidance.</p>
+          <form class="advice-form" data-feature="Fertilizer Assistant">
+            <label>Farm details<textarea name="details" rows="6" placeholder="Crop, crop age/growth stage, soil type, soil-test values (if available), and symptoms..." required></textarea></label>
+            <button class="primary-btn" type="submit">Get fertilizer guidance →</button>
+          </form>
+        </div>
+
+        <div class="tool-panel hidden" id="irrigation-panel">
+          <h3>💧 Smart Irrigation</h3><p class="muted">Describe your crop and current field conditions.</p>
+          <form class="advice-form" data-feature="Smart Irrigation">
+            <label>Farm details<textarea name="details" rows="6" placeholder="Crop, growth stage, soil type, recent rainfall, current soil moisture, and water availability..." required></textarea></label>
+            <button class="primary-btn" type="submit">Get irrigation guidance →</button>
+          </form>
+        </div>
+
+        <div class="tool-panel hidden" id="weather-panel">
+          <h3>🌦️ Weather-Based Advice</h3><p class="muted">Enter the weather you are currently experiencing or a forecast you have checked.</p>
+          <form class="advice-form" data-feature="Weather-Based Advice">
+            <label>Weather and farm details<textarea name="details" rows="6" placeholder="Location, temperature, chance of rain, wind, humidity (if known), crop and growth stage..." required></textarea></label>
+            <button class="primary-btn" type="submit">Get weather precautions →</button>
+          </form>
+        </div>
+
+        <div class="result-panel">
+          <div class="result-top"><span class="result-symbol">✦</span><div><b>KrishiMitra's response</b><small>AI-generated guidance</small></div></div>
+          <div id="result" class="result-content"><div class="empty-state"><span>🌱</span><h3>Your result will appear here</h3><p>Select a tool and submit your farm details to get started.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chat-section section" id="assistant">
+      <div class="chat-intro"><span class="eyebrow">ALWAYS HERE TO HELP</span><h2>Meet <span>KrishiBot</span></h2><p>Ask a question about crops, soil, pests, irrigation or farming practices. You can write in Hindi or English.</p><div class="chat-suggestions"><button type="button" onclick="useSuggestion('How can I improve soil health naturally?')">Improve soil health</button><button type="button" onclick="useSuggestion('What are common signs of overwatering?')">Overwatering signs</button></div></div>
+      <div class="chat-box">
+        <div class="chat-header"><div class="bot-avatar">🌱</div><div><b>KrishiBot</b><small><span class="online-dot"></span> Farming assistant</small></div></div>
+        <div class="messages" id="messages"><div class="message bot-message">Namaste! I am KrishiBot. 🌱 Ask me any farming question in Hindi or English.</div></div>
+        <form id="chat-form" class="chat-input"><input id="chat-message" placeholder="Type your farming question..." autocomplete="off" required><button aria-label="Send message" type="submit">➤</button></form>
+        <p class="chat-footnote">AI answers can be imperfect. Verify important decisions with local agricultural experts.</p>
+      </div>
+    </section>
+
+    <section class="section history-section" id="history">
+      <div class="section-heading"><div><span class="eyebrow">RECENT ACTIVITY</span><h2>Your recent reports</h2></div><button class="outline-btn" onclick="loadHistory()">Refresh history ↻</button></div>
+      <div id="history-list" class="history-list"><p class="muted">Your recent AI reports will appear here.</p></div>
+    </section>
+
+    <section class="disclaimer"><span>ℹ️</span><p><b>Important:</b> KrishiMitra AI provides general information, not a guaranteed diagnosis or substitute for local agricultural advice. Confirm disease treatment and fertilizer decisions with a qualified local expert. Weather advice uses only details you enter; this version does not fetch live weather.</p></section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-icon">🌱</span><span>KrishiMitra <b>AI</b></span></a><p>Growing knowledge. Supporting farmers.</p><small>Student project demonstration · Powered by Gemini API</small></footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
